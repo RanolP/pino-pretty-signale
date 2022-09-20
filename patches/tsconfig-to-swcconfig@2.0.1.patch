@@ -2,11 +2,10 @@ diff --git a/dist/index.js b/dist/index.js
 index e0d767dca13d96c5fe8eb207b3ff92cc7a1852b7..f24ac8d1ad9ec241d2ee84f2a30208b97ca6b49f 100644
 --- a/dist/index.js
 +++ b/dist/index.js
-@@ -19,15 +19,22 @@ swcOptions) {
+@@ -19,15 +19,21 @@ swcOptions) {
  }
  exports.convert = convert;
  function convertTsConfig(tsOptions, swcOptions = {}) {
-+    console.log(tsOptions);
      var _a;
      // https://json.schemastore.org/tsconfig
      const { esModuleInterop = false, sourceMap = 'inline', // notice here we default it to 'inline' instead of false

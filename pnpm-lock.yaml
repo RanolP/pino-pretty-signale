@@ -2,7 +2,7 @@ lockfileVersion: 5.4
 
 patchedDependencies:
   tsconfig-to-swcconfig@2.0.1:
-    hash: tntftjyojfuoxg7gpxbk7cnhqq
+    hash: mxlkuny45amwrtss4tes5pjypq
     path: patches/tsconfig-to-swcconfig@2.0.1.patch
 
 specifiers:
@@ -708,7 +708,7 @@ packages:
     hasBin: true
     dev: true
 
-  /tsconfig-to-swcconfig/2.0.1_tntftjyojfuoxg7gpxbk7cnhqq:
+  /tsconfig-to-swcconfig/2.0.1_mxlkuny45amwrtss4tes5pjypq:
     resolution: {integrity: sha512-GD4rQFgw2Vdi9D81eO7F0OfKZPiBPdyB5mwbUgnGqD3jWBT8dW9TDT9vLMkbyEYM+FSv09nqmbZpzAdRDni0WQ==}
     dependencies:
       deepmerge: 4.2.2
@@ -730,7 +730,7 @@ packages:
       '@swc/cli': 0.1.57_@swc+core@1.3.2
       '@swc/core': 1.3.2
       cac: 6.7.14
-      tsconfig-to-swcconfig: 2.0.1_tntftjyojfuoxg7gpxbk7cnhqq
+      tsconfig-to-swcconfig: 2.0.1_mxlkuny45amwrtss4tes5pjypq
     transitivePeerDependencies:
       - chokidar
     dev: true
