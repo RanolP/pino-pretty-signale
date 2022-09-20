@@ -1,12 +1,12 @@
 {
   "compilerOptions": {
-    "target": "ESNext",
-    "module": "NodeNext",
+    "target": "ES2016",
     "allowJs": false,
     "checkJs": false,
-    // "declaration": true,                         /* Generates corresponding '.d.ts' file. */
-    // "declarationMap": true,                      /* Generates a sourcemap for each corresponding '.d.ts' file. */
-    // "sourceMap": true,                           /* Generates corresponding '.map' file. */
+
+    // emit declarations only in dts mode
+    "declaration": false,
+    "declarationMap": false,
     // "outFile": "./",                             /* Concatenate and emit output to single file. */
     // "outDir": "./",                              /* Redirect output structure to the directory. */
     // "rootDir": "./",                             /* Specify the root directory of input files. Use to control the output directory structure with --outDir. */
@@ -46,5 +46,6 @@
     /* Advanced Options */
     "skipLibCheck": true /* Skip type checking of declaration files. */,
     "forceConsistentCasingInFileNames": true /* Disallow inconsistently-cased references to the same file. */
-  }
+  },
+  "include": ["src"]
 }

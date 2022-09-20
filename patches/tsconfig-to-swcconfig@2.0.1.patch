@@ -1,0 +1,51 @@
+diff --git a/dist/index.js b/dist/index.js
+index e0d767dca13d96c5fe8eb207b3ff92cc7a1852b7..f24ac8d1ad9ec241d2ee84f2a30208b97ca6b49f 100644
+--- a/dist/index.js
++++ b/dist/index.js
+@@ -19,15 +19,22 @@ swcOptions) {
+ }
+ exports.convert = convert;
+ function convertTsConfig(tsOptions, swcOptions = {}) {
++    console.log(tsOptions);
+     var _a;
+     // https://json.schemastore.org/tsconfig
+     const { esModuleInterop = false, sourceMap = 'inline', // notice here we default it to 'inline' instead of false
+-    importHelpers = false, experimentalDecorators = false, emitDecoratorMetadata = false, target = 'es3', module: _module, jsxFactory = 'React.createElement', jsxFragmentFactory = 'React.Fragment', jsxImportSource = 'react', alwaysStrict = false, noImplicitUseStrict = false, paths, baseUrl, } = tsOptions;
++    importHelpers = false, experimentalDecorators = false, emitDecoratorMetadata = false, target: _target = 'es3', module: _module, jsxFactory = 'React.createElement', jsxFragmentFactory = 'React.Fragment', jsxImportSource = 'react', alwaysStrict = false, noImplicitUseStrict = false, paths, baseUrl, } = tsOptions;
++    const target = _target.toLowerCase();
+     const module = (_a = _module) === null || _a === void 0 ? void 0 : _a.toLowerCase();
+     const transformedOptions = deepmerge_1.default({
+         sourceMaps: sourceMap,
+         module: {
+-            type: ['commonjs', 'amd', 'umd'].includes(module) ? module : 'commonjs',
++            type: 
++                ['commonjs', 'amd', 'umd'].includes(module)
++                ? module
++                : module && module.startsWith('es')
++                ? 'es6'
++                : 'commonjs',
+             strictMode: alwaysStrict || !noImplicitUseStrict,
+             noInterop: !esModuleInterop,
+         },
+@@ -52,7 +59,7 @@ function convertTsConfig(tsOptions, swcOptions = {}) {
+                     importSource: jsxImportSource,
+                 },
+             },
+-            keepClassNames: !['es3', 'es5', 'es6', 'es2015'].includes(target.toLowerCase()),
++            keepClassNames: !['es3', 'es5', 'es6', 'es2015'].includes(target),
+             paths,
+             baseUrl,
+         },
+diff --git a/dist/utils.js b/dist/utils.js
+index 6bb20bbdbd65d10a02631d32291a9ca510be402d..c9e4430f8c611b2cd41c32393790cd98f1223f49 100644
+--- a/dist/utils.js
++++ b/dist/utils.js
+@@ -31,7 +31,7 @@ function loadTsFile(filename, cwd, tsConfig) {
+         const { extends: _extends } = data;
+         if (_extends) {
+             delete data.extends;
+-            return loadTsFile(path, cwd, data);
++            return deepmerge_1.default(loadTsFile(_extends, cwd), data);
+         }
+         else {
+             return data;
