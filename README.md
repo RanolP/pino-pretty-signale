@@ -29,7 +29,7 @@ Configure pino-pretty-signale programmable way.
 Be aware that it should not be used in production.
 
 ```js
-const pps = require('pino-pretty-signale');
+import pps from 'pino-pretty-signale';
 pps.install({
   // you configuration here
 });

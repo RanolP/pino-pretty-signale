@@ -3,7 +3,7 @@ import dateformat from 'dateformat';
 import SonicBoom from 'sonic-boom';
 import stringifySafe from 'fast-safe-stringify';
 import { isMainThread } from 'worker_threads';
-const defaultColorizer = require('./colors.js')();
+import getColorizer from './colors.js';
 import {
   DATE_FORMAT,
   ERROR_LIKE_KEYS,
@@ -15,6 +15,11 @@ import {
   LEVELS,
   DATE_FORMAT_SIMPLE,
 } from './constants.js';
+
+// This is leak free, it does not leave event handlers
+import onExit from 'on-exit-leak-free';
+
+const defaultColorizer = getColorizer();
 
 export {
   isObject,
@@ -714,9 +719,6 @@ function buildSafeSonicBoom(opts) {
 function setupOnExit(stream) {
   /* istanbul ignore next */
   if (global.WeakRef && global.WeakMap && global.FinalizationRegistry) {
-    // This is leak free, it does not leave event handlers
-    const onExit = require('on-exit-leak-free');
-
     onExit.register(stream, autoEnd);
 
     stream.on('close', function () {

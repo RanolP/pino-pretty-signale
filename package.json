@@ -6,30 +6,32 @@
   "author": "RanolP <public.ranolp@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "type": "module",
-  "bin": "dist/esm/cli.mjs",
-  "main": "dist/cjs/index.cjs",
-  "module": "dist/esm/index.mjs",
+  "type": "commonjs",
+  "bin": "dist/esm/cli/index.js",
+  "maina": "dist/cjs/index.js",
+  "module": "dist/esm/index.js",
   "types": "dist/types/index.d.ts",
   "files": [
     "dist"
   ],
   "exports": {
     "./runtime": {
-      "import": "./dist/esm/runtime.mjs",
-      "require": "./dist/cjs/runtime.cjs"
+      "import": "./dist/esm/runtime.js",
+      "require": "./dist/cjs/runtime.js"
     },
     ".": {
-      "import": "./dist/esm/index.mjs",
-      "require": "./dist/cjs/index.cjs"
+      "import": "./dist/esm/index.js",
+      "require": "./dist/cjs/index.js"
     }
   },
   "scripts": {
     "build": "concurrently pnpm:build:*",
-    "build:cjs": "tswc --tsconfig tsconfig.cjs.json -- src -d dist/cjs --file-extension .cjs",
-    "build:esm": "tswc --tsconfig tsconfig.esm.json -- src -d dist/esm --file-extension .mjs",
+    "build:cjs": "tswc --tsconfig tsconfig.cjs.json -- src -d dist/cjs --copy-files",
+    "build:esm": "tswc --tsconfig tsconfig.esm.json -- src -d dist/esm --copy-files",
     "build:types": "tsc -p tsconfig.types.json",
-    "start": "pino-pretty-signale"
+    "watch:esm": "pnpm run build:esm --watch",
+    "start": "tsm src/cli/index.ts",
+    "dev": "nodemon"
   },
   "devDependencies": {
     "@swc/cli": "^0.1.57",
@@ -38,6 +40,7 @@
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.7.18",
     "@types/pump": "^1.1.1",
+    "chokidar": "^3.5.3",
     "colorette": "^2.0.19",
     "concurrently": "^7.4.0",
     "dateformat": "^4.6.3",
@@ -46,20 +49,22 @@
     "help-me": "^4.1.0",
     "joycon": "^3.1.1",
     "minimist": "^1.2.6",
+    "nodemon": "^2.0.20",
     "on-exit-leak-free": "^2.1.0",
     "pino-abstract-transport": "^1.0.0",
     "pump": "^3.0.0",
     "readable-stream": "^4.1.0",
     "secure-json-parse": "^2.5.0",
     "sonic-boom": "^3.2.0",
-    "strip-json-comments": "^5.0.0",
+    "strip-json-comments": "^3.1.1",
+    "tsconfig-to-swcconfig": "^2.0.1",
+    "tsm": "^2.2.2",
     "tswc": "^1.1.1",
     "typescript": "^4.8.3"
   },
   "pnpm": {
     "patchedDependencies": {
-      "tsconfig-to-swcconfig@2.0.1": "patches/tsconfig-to-swcconfig@2.0.1.patch",
-      "@swc/cli@0.1.57": "patches/@swc__cli@0.1.57.patch"
+      "tsconfig-to-swcconfig@2.0.1": "patches/tsconfig-to-swcconfig@2.0.1.patch"
     }
   }
 }

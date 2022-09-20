@@ -141,8 +141,8 @@ function customColoredColorizerFactory(
  */
 export default function getColorizer(
   useColors: boolean = false,
-  customColors: unknown[],
-  useOnlyCustomProps: boolean,
+  customColors?: unknown[],
+  useOnlyCustomProps?: boolean,
 ): () => unknown {
   if (useColors && customColors !== undefined) {
     return customColoredColorizerFactory(customColors, useOnlyCustomProps);

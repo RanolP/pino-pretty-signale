@@ -6,13 +6,14 @@ import pump from 'pump';
 import sjp from 'secure-json-parse';
 import JoyCon from 'joycon';
 import stripJsonComments from 'strip-json-comments';
-import { build } from './build.js';
-import * as CONSTANTS from './constants.js';
-import { isObject } from './utils.js';
+import { build } from '../build.js';
+import * as CONSTANTS from '../constants.js';
+import { isObject } from '../utils.js';
 import minimist from 'minimist';
+import { fileURLToPath } from 'node:url';
 
 const help = helpMe({
-  dir: path.join(__dirname, 'help'),
+  dir: path.join(fileURLToPath(import.meta.url), '../help'),
   ext: '.txt',
 });
 
