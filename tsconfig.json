@@ -3,6 +3,7 @@
     "target": "ES2016",
     "allowJs": false,
     "checkJs": false,
+    "module": "NodeNext",
 
     // emit declarations only in dts mode
     "declaration": false,
