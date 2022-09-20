@@ -5,12 +5,15 @@
 
 ## Description
 
-It is meant to be used as a drop-in replacement for [pino-pretty][] without any configuration. Also, **it should be used in development**.
+It is meant to be used as a drop-in replacement for [pino-pretty][] and also [signale][].
+Several options are supported as same as the original package, but not all of them.
+See [Options](#options) for more details.
+Also, **it should not be used in production**.
 
 ## Highlights
 
-- [signale][] like formatting style.
-- optional [signale][] compatible runtime api.
+- Fancy log line formatting inspired by [signale][].
+- Be drop-in replacecment for [signale][] users with optional runtime ([signale] has no activity for a long time and is not actively maintained).
 
 ## Usage
 
@@ -35,13 +38,15 @@ pps.install({
 });
 ```
 
-### pino-pretty-signale/runtime (for compat)
+### pino-pretty-signale/runtime (as an alternative to signale)
 
 This module provides a drop-in replacement api for [signale][].
 
+## Options
+
 ## Acknowledgements
 
-- The base codes are briefly taken from [pino-pretty][], which is licensed under MIT.
+- The base codes are briefly taken from [pino-pretty][], which is licensed under MIT, for basic compatibility.
   Thanks for sharing the great codes.
 
 [pino-pretty]: https://github.com/pinojs/pino-pretty
