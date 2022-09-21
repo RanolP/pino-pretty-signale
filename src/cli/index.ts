@@ -13,7 +13,7 @@ import minimist from 'minimist';
 import { fileURLToPath } from 'node:url';
 
 const help = helpMe({
-  dir: path.join(fileURLToPath(import.meta.url), '../help'),
+  dir: path.join(path.dirname(fileURLToPath(import.meta.url)), 'help'),
   ext: '.txt',
 });
 
