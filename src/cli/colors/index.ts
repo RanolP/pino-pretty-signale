@@ -1,32 +1,20 @@
-import { LEVELS, LEVEL_NAMES } from './constants.js';
-import { createColors } from 'colorette';
+import { LEVELS, LEVEL_NAMES } from '../../constants.js';
+import { PlainPalette } from './palette/plain.js';
+import { availableColors, cyan, gray, white } from './palette/colored.js';
+import { Color } from 'colorette';
 
-const nocolor = <T>(input: T): T => input;
-const plain = {
-  default: nocolor,
-  60: nocolor,
-  50: nocolor,
-  40: nocolor,
-  30: nocolor,
-  20: nocolor,
-  10: nocolor,
-  message: nocolor,
-  greyMessage: nocolor,
-};
-
-const availableColors = createColors({ useColor: true });
-const { white, bgRed, red, yellow, green, blue, gray, cyan } = availableColors;
-
-const colored = {
-  default: white,
-  60: bgRed,
-  50: red,
-  40: yellow,
-  30: green,
-  20: blue,
-  10: gray,
-  message: cyan,
-  greyMessage: gray,
+export { Color };
+export type Palette = {
+  default: Color;
+  60: Color;
+  50: Color;
+  40: Color;
+  30: Color;
+  20: Color;
+  10: Color;
+  message: Color;
+  greyMessage: Color;
+  [key: string | number]: Color | undefined;
 };
 
 function resolveCustomColoredColorizer(
@@ -84,11 +72,11 @@ function colorizeLevel(useOnlyCustomProps: boolean) {
 
 function plainColorizer(useOnlyCustomProps: boolean) {
   const newPlainColorizer = colorizeLevel(useOnlyCustomProps);
-  const customColoredColorizer = function (level, opts) {
-    return newPlainColorizer(level, plain, opts);
+  const customColoredColorizer = function (level: unknown, opts: unknown) {
+    return newPlainColorizer(level, PlainPalette, opts);
   };
-  customColoredColorizer.message = plain.message;
-  customColoredColorizer.greyMessage = plain.greyMessage;
+  customColoredColorizer.message = PlainPalette.message;
+  customColoredColorizer.greyMessage = PlainPalette.greyMessage;
   return customColoredColorizer;
 }
 

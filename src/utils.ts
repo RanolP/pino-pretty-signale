@@ -3,7 +3,7 @@ import dateformat from 'dateformat';
 import SonicBoom from 'sonic-boom';
 import stringifySafe from 'fast-safe-stringify';
 import { isMainThread } from 'worker_threads';
-import getColorizer from './colors.js';
+import getColorizer from './cli/colors/index.js';
 import {
   DATE_FORMAT,
   ERROR_LIKE_KEYS,

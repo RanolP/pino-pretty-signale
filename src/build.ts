@@ -3,7 +3,7 @@ import pump from 'pump';
 import { Transform } from 'readable-stream';
 import abstractTransport from 'pino-abstract-transport';
 import sjs from 'secure-json-parse';
-import colors from './colors.js';
+import colors from './cli/colors/index.js';
 import {
   ERROR_LIKE_KEYS,
   MESSAGE_KEY,

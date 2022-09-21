@@ -6,7 +6,7 @@
   "author": "RanolP <public.ranolp@gmail.com>",
   "license": "MIT",
   "sideEffects": false,
-  "type": "commonjs",
+  "type": "module",
   "bin": "dist/esm/cli/index.js",
   "main": "dist/cjs/index.js",
   "module": "dist/esm/index.js",
