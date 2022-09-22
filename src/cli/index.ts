@@ -8,9 +8,9 @@ import JoyCon from 'joycon';
 import stripJsonComments from 'strip-json-comments';
 import { build } from '../build.js';
 import * as CONSTANTS from '../constants.js';
-import { isObject } from '../utils.js';
 import minimist from 'minimist';
 import { fileURLToPath } from 'node:url';
+import { isObject } from '../utils/is-object.js';
 
 const help = helpMe({
   dir: path.join(path.dirname(fileURLToPath(import.meta.url)), 'help'),
