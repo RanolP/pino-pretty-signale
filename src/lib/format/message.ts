@@ -1,3 +1,6 @@
+import { defaultColorizer } from "../../cli/colors/index.js";
+import { LEVELS, LEVEL_KEY, LEVEL_LABEL, MESSAGE_KEY } from "../../constants.js";
+
 /**
  * Prettifies a message string if the given `log` has a message property.
  *

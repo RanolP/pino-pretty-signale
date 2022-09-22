@@ -1,4 +1,9 @@
-import { ERROR_LIKE_KEYS } from "../../constants.js";
+import { ERROR_LIKE_KEYS, LOGGER_KEYS } from '../../constants.js';
+import stringifySafe from 'fast-safe-stringify';
+import { joinLinesWithIndentation } from '../../utils/internals/format.js';
+import { prettifyError } from './error.js';
+import { defaultColorizer } from '../../cli/colors/index.js';
+import stringifySafe from 'fast-safe-stringify';
 
 /**
  * Prettifies a standard object. Special care is taken when processing the object
@@ -7,7 +12,7 @@ import { ERROR_LIKE_KEYS } from "../../constants.js";
  *
  * @param {object} input
  * @param {object} input.input The object to prettify.
- * @param {string} [input.ident] The identation sequence to use. Default: `'    '`.
+ * @param {string} [input.indent] The indentation sequence to use. Default: `'    '`.
  * @param {string} [input.eol] The EOL sequence to use. Default: `'\n'`.
  * @param {string[]} [input.skipKeys] A set of object keys to exclude from the
  * prettified result. Default: `[]`.
@@ -26,7 +31,7 @@ import { ERROR_LIKE_KEYS } from "../../constants.js";
  */
 export function prettifyObject({
   input,
-  ident = '    ',
+  indent = '    ',
   eol = '\n',
   skipKeys = [],
   customPrettifiers = {},
@@ -81,10 +86,10 @@ export function prettifyObject({
 
       const joinedLines = joinLinesWithIndentation({
         input: lines,
-        ident,
+        indent,
         eol,
       });
-      result += `${ident}${keyName}:${
+      result += `${indent}${keyName}:${
         joinedLines.startsWith(eol) ? '' : ' '
       }${joinedLines}${eol}`;
     });
@@ -100,9 +105,8 @@ export function prettifyObject({
 
     if (lines === undefined) return;
 
-    result += prettifyError({ keyName, lines, eol, ident });
+    result += prettifyError({ keyName, lines, eol, indent });
   });
 
   return result;
 }
-

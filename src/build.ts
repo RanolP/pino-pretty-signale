@@ -12,16 +12,16 @@ import {
   LEVEL_NAMES,
 } from './constants.js';
 import {
-  isObject,
-  prettifyErrorLog,
-  prettifyLevel,
-  prettifyMessage,
-  prettifyMetadata,
-  prettifyObject,
-  prettifyTime,
   buildSafeSonicBoom,
   filterLog,
-} from './utils.js';
+} from './utils/index.js';
+import { isObject } from './utils/is-object.js';
+import { prettifyMetadata } from './lib/format/metadata.js';
+import { prettifyLevel } from './lib/format/level.js';
+import { prettifyTime } from './lib/format/time.js';
+import { prettifyMessage } from './lib/format/message.js';
+import { prettifyErrorLog } from './lib/format/error-log.js';
+import { prettifyObject } from './lib/format/object.js';
 
 const jsonParser = (input) => {
   try {
@@ -56,7 +56,7 @@ const defaultOptions = {
 function prettyFactory(options) {
   const opts = Object.assign({}, defaultOptions, options);
   const EOL = opts.crlf ? '\r\n' : '\n';
-  const IDENT = '    ';
+  const INDENT = '    ';
   const messageKey = opts.messageKey;
   const levelKey = opts.levelKey;
   const levelLabel = opts.levelLabel;
@@ -232,7 +232,7 @@ function prettyFactory(options) {
         log,
         errorLikeKeys: errorLikeObjectKeys,
         errorProperties: errorProps,
-        ident: IDENT,
+        indent: INDENT,
         eol: EOL,
       });
       if (singleLine) line += EOL;
@@ -247,7 +247,7 @@ function prettyFactory(options) {
         customPrettifiers,
         errorLikeKeys: errorLikeObjectKeys,
         eol: EOL,
-        ident: IDENT,
+        indent: INDENT,
         singleLine,
         colorizer,
       });

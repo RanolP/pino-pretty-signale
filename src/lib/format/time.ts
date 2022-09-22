@@ -1,3 +1,6 @@
+import { TIMESTAMP_KEY } from "../../constants.js";
+import { formatTime } from "../../utils/internals/date-time.js";
+
 /**
  * Prettifies a timestamp if the given `log` has either `time`, `timestamp` or custom specified timestamp
  * property.

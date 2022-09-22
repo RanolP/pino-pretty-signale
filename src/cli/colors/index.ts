@@ -1,9 +1,9 @@
 import { LEVELS, LEVEL_NAMES } from '../../constants.js';
 import { PlainPalette } from './palette/plain.js';
-import { availableColors, cyan, gray, white } from './palette/colored.js';
-import { Color } from 'colorette';
+import { availableColors, colored, cyan, gray, white } from './palette/colored.js';
+import type { Color } from 'colorette';
 
-export { Color };
+export type { Color };
 export type Palette = {
   default: Color;
   60: Color;
@@ -140,3 +140,5 @@ export default function getColorizer(
 
   return plainColorizer(useOnlyCustomProps);
 }
+
+export const defaultColorizer = getColorizer();
