@@ -20,7 +20,9 @@ import { prettifyMessage } from './lib/format/message.js';
 import { prettifyErrorLog } from './lib/format/error-log.js';
 import { prettifyObject } from './lib/format/object.js';
 
-const jsonParser = (input: string | Buffer) => {
+type Result<T> = { value: T } | { err: unknown };
+
+const jsonParser = (input: string | Buffer): Result<any> => {
   try {
     return { value: sjs.parse(input, null, { protoAction: 'remove' }) };
   } catch (err) {
@@ -145,11 +147,11 @@ export function prettyFactory(options: Partial<Options>) {
 
   return pretty;
 
-  function pretty(inputData) {
-    let log;
+  function pretty(inputData: unknown) {
+    let log: {};
     if (!isObject(inputData)) {
       const parsed = jsonParser(inputData);
-      if (parsed.err || !isObject(parsed.value)) {
+      if ('err' in parsed || !isObject(parsed.value)) {
         // pass through
         return inputData + EOL;
       }

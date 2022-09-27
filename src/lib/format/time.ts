@@ -1,5 +1,5 @@
-import { TIMESTAMP_KEY } from "../../constants.js";
-import { formatTime } from "../../utils/internals/date-time.js";
+import { TIMESTAMP_KEY } from '../../constants.js';
+import { formatTime } from '../../utils/internals/date-time.js';
 
 /**
  * Prettifies a timestamp if the given `log` has either `time`, `timestamp` or custom specified timestamp
@@ -23,6 +23,11 @@ export function prettifyTime({
   timestampKey = TIMESTAMP_KEY,
   translateFormat = undefined,
   prettifier,
+}: {
+  log: unknown;
+  timestampKey: string;
+  translateFormat: boolean | undefined;
+  prettifier: unknown;
 }) {
   let time = null;
 
