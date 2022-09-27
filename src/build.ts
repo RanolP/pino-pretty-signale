@@ -11,10 +11,7 @@ import {
   LEVEL_KEY,
   LEVEL_NAMES,
 } from './constants.js';
-import {
-  buildSafeSonicBoom,
-  filterLog,
-} from './utils/index.js';
+import { buildSafeSonicBoom, filterLog } from './utils/index.js';
 import { isObject } from './utils/is-object.js';
 import { prettifyMetadata } from './lib/format/metadata.js';
 import { prettifyLevel } from './lib/format/level.js';
@@ -23,15 +20,37 @@ import { prettifyMessage } from './lib/format/message.js';
 import { prettifyErrorLog } from './lib/format/error-log.js';
 import { prettifyObject } from './lib/format/object.js';
 
-const jsonParser = (input) => {
+const jsonParser = (input: string | Buffer) => {
   try {
-    return { value: sjs.parse(input, { protoAction: 'remove' }) };
+    return { value: sjs.parse(input, null, { protoAction: 'remove' }) };
   } catch (err) {
     return { err };
   }
 };
 
-const defaultOptions = {
+export interface Options {
+  colorize: boolean;
+  crlf: boolean;
+  errorLikeObjectKeys: string[];
+  errorProps: string;
+  customLevels: unknown | null;
+  customColors: unknown | null;
+  useOnlyCustomProps: boolean;
+  levelFirst: boolean;
+  messageKey: string;
+  messageFormat: boolean;
+  timestampKey: string;
+  translateTime: boolean;
+  useMetadata: boolean;
+  outputStream: NodeJS.WriteStream;
+  customPrettifiers: Record<string, unknown>;
+  hideObject: boolean;
+  ignore: string;
+  include: undefined;
+  singleLine: boolean;
+}
+
+const defaultOptions: Options = {
   colorize: isColorSupported,
   crlf: false,
   errorLikeObjectKeys: ERROR_LIKE_KEYS,
@@ -53,8 +72,8 @@ const defaultOptions = {
   singleLine: false,
 };
 
-function prettyFactory(options) {
-  const opts = Object.assign({}, defaultOptions, options);
+export function prettyFactory(options: Partial<Options>) {
+  const opts = { ...defaultOptions, ...options };
   const EOL = opts.crlf ? '\r\n' : '\n';
   const INDENT = '    ';
   const messageKey = opts.messageKey;
@@ -263,7 +282,7 @@ function prettyFactory(options) {
   }
 }
 
-function build(opts = {}) {
+export function build(opts: Partial<Options> = {}) {
   const pretty = prettyFactory(opts);
   return abstractTransport(
     function (source) {
@@ -303,5 +322,5 @@ function build(opts = {}) {
   );
 }
 
-export { build, prettyFactory, colors as colorizerFactory };
+export { colors as colorizerFactory };
 export default build;
