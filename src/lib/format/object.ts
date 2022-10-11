@@ -3,7 +3,6 @@ import stringifySafe from 'fast-safe-stringify';
 import { joinLinesWithIndentation } from '../../utils/internals/format.js';
 import { prettifyError } from './error.js';
 import { defaultColorizer } from '../../cli/colors/index.js';
-import stringifySafe from 'fast-safe-stringify';
 
 /**
  * Prettifies a standard object. Special care is taken when processing the object
