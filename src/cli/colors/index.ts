@@ -1,6 +1,12 @@
 import { LEVELS, LEVEL_NAMES } from '../../constants.js';
 import { PlainPalette } from './palette/plain.js';
-import { availableColors, colored, cyan, gray, white } from './palette/colored.js';
+import {
+  availableColors,
+  colored,
+  cyan,
+  gray,
+  white,
+} from './palette/colored.js';
 import type { Color } from 'colorette';
 
 export type { Color };
@@ -16,15 +22,20 @@ export type Palette = {
   greyMessage: Color;
   [key: string | number]: Color | undefined;
 };
+type Colorizer = {};
 
 function resolveCustomColoredColorizer(
-  customColors: Array<[level: string, color: unknown]>,
-): Record<string, unknown> {
+  customColors: Array<
+    [level: string | number | symbol, color: string | symbol | number]
+  >,
+): Record<string | number | symbol, unknown> {
   return customColors.reduce(
     (agg, [level, color]) => ({
       [level]:
-        typeof availableColors[color] === 'function'
-          ? availableColors[color]
+        color in availableColors &&
+        typeof availableColors[color as keyof typeof availableColors] ===
+          'function'
+          ? availableColors[color as keyof typeof availableColors]
           : white,
       ...agg,
     }),
@@ -92,8 +103,8 @@ function coloredColorizer(useOnlyCustomProps: boolean) {
 
 function customColoredColorizerFactory(
   customColors,
-  useOnlyCustomProps: boolean,
-) {
+  useOnlyCustomProps: boolean | undefined,
+): (...args: unknown[]) => Colorizer {
   const onlyCustomColored = resolveCustomColoredColorizer(customColors);
   const customColored = useOnlyCustomProps
     ? onlyCustomColored
@@ -131,7 +142,7 @@ export default function getColorizer(
   useColors: boolean = false,
   customColors?: unknown[],
   useOnlyCustomProps?: boolean,
-): () => unknown {
+): (...args: unknown[]) => Colorizer {
   if (useColors && customColors !== undefined) {
     return customColoredColorizerFactory(customColors, useOnlyCustomProps);
   } else if (useColors) {

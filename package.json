@@ -24,18 +24,13 @@
     }
   },
   "scripts": {
-    "build": "concurrently pnpm:build:*",
-    "build:cjs": "tswc --tsconfig tsconfig.cjs.json -- src -d dist/cjs --copy-files --output-file-extension .cjs",
-    "build:patch-cjs-ext": "find ./dist/cjs -type f -name \"*.cjs\" | xargs sed -ri \"s/require\\\\(((((')(.+)\\\\.js')|((\\\")(.+)\\\\.js\\\")))/require(\\\\4\\\\5\\\\7\\\\8.cjs\\\\4\\\\7/g\"",
-    "build:esm": "tswc --tsconfig tsconfig.esm.json -- src -d dist/esm --copy-files",
+    "build": "tsm build.ts",
     "build:types": "tsc -p tsconfig.types.json",
     "watch:esm": "pnpm run build:esm --watch",
     "start": "tsm src/cli/index.ts",
     "dev": "nodemon --exec \"pnpm start\""
   },
   "devDependencies": {
-    "@swc/cli": "^0.1.57",
-    "@swc/core": "^1.3.6",
     "@types/dateformat": "^5.0.0",
     "@types/minimist": "^1.2.2",
     "@types/node": "^18.8.4",
@@ -44,7 +39,11 @@
     "colorette": "^2.0.19",
     "concurrently": "^7.4.0",
     "dateformat": "^4.6.3",
+    "deepmerge": "^4.2.2",
+    "esbuild": "^0.15.10",
+    "esbuild-plugin-copy": "^1.3.0",
     "fast-copy": "^2.1.3",
+    "fast-glob": "^3.2.12",
     "fast-safe-stringify": "^2.1.1",
     "help-me": "^4.1.0",
     "joycon": "^3.1.1",
@@ -57,15 +56,7 @@
     "secure-json-parse": "^2.5.0",
     "sonic-boom": "^3.2.0",
     "strip-json-comments": "^3.1.1",
-    "tsconfig-to-swcconfig": "^2.0.1",
     "tsm": "^2.2.2",
-    "tswc": "^1.1.1",
     "typescript": "^4.8.4"
-  },
-  "pnpm": {
-    "patchedDependencies": {
-      "tsconfig-to-swcconfig@2.0.1": "patches/tsconfig-to-swcconfig@2.0.1.patch",
-      "@swc/cli@0.1.57": "patches/@swc__cli@0.1.57.patch"
-    }
   }
 }

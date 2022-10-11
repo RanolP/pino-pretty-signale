@@ -1,9 +1,10 @@
 import { Colorette, createColors } from "colorette";
+import { Palette } from "../index.js";
 
 export const availableColors: Colorette = createColors({ useColor: true });
 export const { white, bgRed, red, yellow, green, blue, gray, cyan } = availableColors;
 
-export const colored = {
+export const colored: Palette = {
   default: white,
   60: bgRed,
   50: red,

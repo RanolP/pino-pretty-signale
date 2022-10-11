@@ -1,6 +1,6 @@
 import fastCopy from 'fast-copy';
 import SonicBoom from 'sonic-boom';
-import { isMainThread } from 'worker_threads';
+import { isMainThread } from 'node:worker_threads';
 import getColorizer from '../cli/colors/index.js';
 import { LEVEL_KEY } from '../constants.js';
 
